@@ -163,112 +163,124 @@
   </div>
 
   <script>
-    let players = [];
+    <script type="module">
 
-    function addPlayer() {
-      const name = document.getElementById('name').value.trim();
-      const power = parseInt(document.getElementById('power').value);
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-      if (!name || isNaN(power)) {
-        alert('Please enter a valid player name and power!');
-        return;
-      }
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-      players.push({ name, power });
+const firebaseConfig = {
+  apiKey: "AIzaSyD7FLnKz0hq1fBIZT9UakE7h8K-IWCkHws",
+  authDomain: "opaa-team-generator.firebaseapp.com",
+  projectId: "opaa-team-generator",
+  storageBucket: "opaa-team-generator.firebasestorage.app",
+  messagingSenderId: "512103695316",
+  appId: "1:512103695316:web:76df61edd28072780fcc41"
+};
 
-      document.getElementById('name').value = '';
-      document.getElementById('power').value = '';
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-      renderPlayers();
+let players = [];
+
+async function addPlayer() {
+  const name = document.getElementById('name').value.trim();
+  const power = parseInt(document.getElementById('power').value);
+
+  if (!name || isNaN(power)) {
+    alert('Please enter valid data!');
+    return;
+  }
+
+  await addDoc(collection(db, "players"), {
+    name,
+    power
+  });
+
+  document.getElementById('name').value = '';
+  document.getElementById('power').value = '';
+}
+
+window.addPlayer = addPlayer;
+
+function renderPlayers() {
+  const container = document.getElementById('players');
+
+  if (players.length === 0) {
+    container.innerHTML = '<div class=\"empty\">No players yet</div>';
+    return;
+  }
+
+  container.innerHTML = '';
+
+  players.forEach((player, index) => {
+    container.innerHTML += `
+      <div class=\"player-item\">
+        <span>${index + 1}. ${player.name} - ${player.power}</span>
+      </div>
+    `;
+  });
+
+  generateTeams();
+}
+
+function generateTeams() {
+  let teamA = [];
+  let teamB = [];
+
+  players.forEach(player => {
+    if (player.power % 2 === 0) {
+      teamB.push(player);
+    } else {
+      teamA.push(player);
     }
+  });
 
-    function renderPlayers() {
-      const container = document.getElementById('players');
+  teamA.sort((a, b) => b.power - a.power);
+  teamB.sort((a, b) => b.power - a.power);
 
-      if (players.length === 0) {
-        container.innerHTML = '<div class="empty">No players added yet</div>';
-        return;
-      }
+  renderTeam('teamAMain', teamA.slice(0, 20));
+  renderTeam('teamASub', teamA.slice(20, 30));
 
-      container.innerHTML = '';
+  renderTeam('teamBMain', teamB.slice(0, 20));
+  renderTeam('teamBSub', teamB.slice(20, 30));
+}
 
-      players.forEach((player, index) => {
-        container.innerHTML += `
-          <div class="player-item">
-            <span>${index + 1}. ${player.name} - ${player.power}</span>
-            <button onclick="removePlayer(${index})">Remove</button>
-          </div>
-        `;
-      });
-    }
+function renderTeam(id, team) {
+  const container = document.getElementById(id);
 
-    function removePlayer(index) {
-      players.splice(index, 1);
-      renderPlayers();
-    }
+  if (team.length === 0) {
+    container.innerHTML = '<div class=\"empty\">No players</div>';
+    return;
+  }
 
-    function clearPlayers() {
-      if (confirm('Are you sure you want to remove all players?')) {
-        players = [];
-        renderPlayers();
-        clearTeams();
-      }
-    }
+  container.innerHTML = '';
 
-    function clearTeams() {
-      document.getElementById('teamAMain').innerHTML = '';
-      document.getElementById('teamASub').innerHTML = '';
-      document.getElementById('teamBMain').innerHTML = '';
-      document.getElementById('teamBSub').innerHTML = '';
-    }
+  team.forEach((player, index) => {
+    container.innerHTML += `
+      <div class=\"member\">
+        ${index + 1}. ${player.name} - ${player.power}
+      </div>
+    `;
+  });
+}
 
-    function generateTeams() {
-      let teamA = [];
-      let teamB = [];
+onSnapshot(collection(db, "players"), (snapshot) => {
+  players = [];
 
-      players.forEach(player => {
-        if (player.power % 2 === 0) {
-          teamB.push(player);
-        } else {
-          teamA.push(player);
-        }
-      });
+  snapshot.forEach((doc) => {
+    players.push(doc.data());
+  });
 
-      teamA.sort((a, b) => b.power - a.power);
-      teamB.sort((a, b) => b.power - a.power);
+  renderPlayers();
+});
 
-      const teamAMain = teamA.slice(0, 20);
-      const teamASub = teamA.slice(20, 30);
-
-      const teamBMain = teamB.slice(0, 20);
-      const teamBSub = teamB.slice(20, 30);
-
-      renderTeam('teamAMain', teamAMain);
-      renderTeam('teamASub', teamASub);
-      renderTeam('teamBMain', teamBMain);
-      renderTeam('teamBSub', teamBSub);
-    }
-
-    function renderTeam(id, team) {
-      const container = document.getElementById(id);
-
-      if (team.length === 0) {
-        container.innerHTML = '<div class="empty">No players available</div>';
-        return;
-      }
-
-      container.innerHTML = '';
-
-      team.forEach((player, index) => {
-        container.innerHTML += `
-          <div class="member">
-            ${index + 1}. ${player.name} - ${player.power}
-          </div>
-        `;
-      });
-    }
-
-    renderPlayers();
   </script>
   <div style="text-align:center; margin-top:30px; opacity:0.5; font-size:14px;">
     [OPAA] - 1341

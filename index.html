@@ -147,7 +147,15 @@
 
     <div class="teams">
       <div class="team-box">
-        <h2>TEAM A (ODD)</h2>
+        <h2>
+  TEAM A (ODD)
+
+  ${isAdmin ? `
+  <button onclick="copyTeam('A')">
+    Copy
+  </button>
+  ` : ''}
+        </h2>
         <h3 class="section-title">Main Team</h3>
         <div id="teamAMain"></div>
 
@@ -156,7 +164,15 @@
       </div>
 
       <div class="team-box">
-        <h2>TEAM B (EVEN)</h2>
+        <h2>
+  TEAM B (EVEN)
+
+  ${isAdmin ? `
+  <button onclick="copyTeam('B')">
+    Copy
+  </button>
+  ` : ''}
+        </h2>
         <h3 class="section-title">Main Team</h3>
         <div id="teamBMain"></div>
 
@@ -330,7 +346,44 @@ async function clearPlayers() {
 }
 
 window.clearPlayers = clearPlayers;
-  </script>
+ function copyTeam(team) {
+  let text = "";
+
+  if (team === "A") {
+    text += "TEAM A MAIN\n";
+
+    document.querySelectorAll("#teamAMain .member").forEach((el) => {
+      text += el.innerText + "\n";
+    });
+
+    text += "\nTEAM A SUBSTITUTE\n";
+
+    document.querySelectorAll("#teamASub .member").forEach((el) => {
+      text += el.innerText + "\n";
+    });
+  }
+
+  if (team === "B") {
+    text += "TEAM B MAIN\n";
+
+    document.querySelectorAll("#teamBMain .member").forEach((el) => {
+      text += el.innerText + "\n";
+    });
+
+    text += "\nTEAM B SUBSTITUTE\n";
+
+    document.querySelectorAll("#teamBSub .member").forEach((el) => {
+      text += el.innerText + "\n";
+    });
+  }
+
+  navigator.clipboard.writeText(text);
+
+  alert("Team copied!");
+}
+
+window.copyTeam = copyTeam;
+    </script>
   <div style="text-align:center; margin-top:30px; opacity:0.5; font-size:14px;">
     [OPAA] - 1341
   </div>

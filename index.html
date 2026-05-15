@@ -197,6 +197,14 @@ async function addPlayer() {
     return;
   }
 
+  const duplicate = players.find(
+  player => player.name.toLowerCase() === name.toLowerCase()
+);
+
+if (duplicate) {
+  alert('This player name is already registered!');
+  return;
+}
   await addDoc(collection(db, "players"), {
   name,
   power,

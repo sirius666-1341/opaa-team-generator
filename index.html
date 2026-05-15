@@ -84,19 +84,23 @@
     }
 
     button {
-      transition: 0.25s ease;
+  transition: 0.25s ease;
 
-font-family: 'Press Start 2P', cursive;
+  font-family: 'Inter', sans-serif;
 
-font-size: 10px;
-      border: 1px solid rgba(255,255,255,0.08);
+  font-size: 12px;
 
-letter-spacing: 1px;
-      padding: 12px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: bold;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  letter-spacing: 1px;
+
+  padding: 12px 18px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: bold;
     }
 
     .add-btn {
@@ -136,7 +140,7 @@ letter-spacing: 1px;
     .players-list {
   background: rgba(17,24,39,0.92);
 
-  border: 2px solid #1e3a8a;
+  border: 1px solid rgba(255,255,255,0.05);
       padding: 15px;
       border-radius: 12px;
       margin-bottom: 20px;
@@ -163,8 +167,7 @@ letter-spacing: 1px;
     .team-box {
       background: rgba(17, 24, 39, 0.92);
 
-  border: 2px solid #1e3a8a;
-
+  border: 1px solid rgba(255,255,255,0.05);
   border-radius: 18px;
 
   padding: 18px;
@@ -256,6 +259,25 @@ letter-spacing: 1px;
 
   gap: 20px;
 }
+    @media (max-width: 900px) {
+
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .teams {
+    grid-template-columns: 1fr;
+  }
+
+  .input-box {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+
+    }
   </style>
 </head>
 <body>

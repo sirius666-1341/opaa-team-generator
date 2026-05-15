@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OPAA Team Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -11,15 +14,31 @@
     }
 
     body {
-      background: #121212;
-      color: white;
-      margin: 0;
-      padding: 20px;
+  background:
+    radial-gradient(circle at top, #172554 0%, #0b1120 60%);
+
+  color: white;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+
+  font-family: 'Inter', sans-serif;
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 20px;
+  text-align: center;
+
+  margin-bottom: 30px;
+
+  font-family: 'Press Start 2P', cursive;
+
+  font-size: 28px;
+
+  color: #facc15;
+
+  text-shadow:
+    0 0 10px rgba(250,204,21,0.5),
+    0 0 20px rgba(250,204,21,0.2);
     }
 
     .container {
@@ -44,6 +63,11 @@
     }
 
     button {
+      transition: 0.25s ease;
+
+font-family: 'Press Start 2P', cursive;
+
+font-size: 10px;
       padding: 12px 18px;
       border: none;
       border-radius: 8px;
@@ -72,7 +96,9 @@
     }
 
     .players-list {
-      background: #1e1e1e;
+  background: rgba(17,24,39,0.92);
+
+  border: 2px solid #1e3a8a;
       padding: 15px;
       border-radius: 12px;
       margin-bottom: 20px;
@@ -92,9 +118,18 @@
     }
 
     .team-box {
-      background: #1e1e1e;
-      border-radius: 12px;
-      padding: 15px;
+  background: rgba(17, 24, 39, 0.92);
+
+  border: 2px solid #1e3a8a;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 0 20px rgba(30,58,138,0.25);
+
+  backdrop-filter: blur(6px);
     }
 
     .team-box h2 {
@@ -116,6 +151,14 @@
       opacity: 0.6;
       font-style: italic;
     }
+ button:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,0.15);
+ }
   </style>
 </head>
 <body>
@@ -557,7 +600,7 @@ function copyAnnouncement() {
 window.copyAnnouncement = copyAnnouncement;
     </script>
   <div style="text-align:center; margin-top:30px; opacity:0.5; font-size:14px;">
-    [OPAA] - 1341
+    ☠ OPAA CREW • EST. 1341 ☠
   </div>
 </body>
 </html>

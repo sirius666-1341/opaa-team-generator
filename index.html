@@ -77,6 +77,9 @@
 
   backdrop-filter: blur(6px);
     }
+    input::placeholder {
+  color: #94a3b8;
+    }
     input:focus {
   border-color: #3b82f6;
 
@@ -115,7 +118,9 @@
     }
 
     .generate-btn {
-  background: linear-gradient(
+  position: relative;
+overflow: hidden;
+      background: linear-gradient(
     135deg,
     #2563eb,
     #1d4ed8
@@ -127,6 +132,29 @@
 
   margin-bottom: 20px;
     }
+    .generate-btn::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.18),
+    transparent
+  );
+
+  transition: 0.5s;
+}
+
+.generate-btn:hover::before {
+  left: 100%;
+}
 
     .clear-btn {
   background: linear-gradient(
@@ -265,7 +293,7 @@
 .team-box h2 {
   margin-top: 0;
   text-align: center;
-
+transition: 0.25s ease;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 14px;
@@ -608,6 +636,15 @@ body::after {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(96,165,250,0.35);
 }
+    .rank-number {
+  color: #60a5fa;
+
+  font-weight: 700;
+
+  margin-right: 6px;
+
+  opacity: 0.9;
+    }
   </style>
 </head>
 <body>
@@ -673,7 +710,6 @@ body::after {
 border: 1px solid rgba(255,255,255,0.08);
 backdrop-filter: blur(10px);
       color:white;
-      border:none;
       padding:15px;
       border-radius:10px;
       resize:vertical;
@@ -805,7 +841,9 @@ function renderPlayers() {
       <div class=\"player-item\">
         <div class="player-info">
   <span class="player-name">
-    ${index + 1}. ${player.name}
+  <span class="rank-number">${index + 1}</span>
+  ${player.name}
+</span>
   </span>
 
   <span class="player-power">
@@ -868,7 +906,9 @@ function renderTeam(id, team) {
     <div class="player-info">
 
       <span class="player-name">
-        ${index + 1}. ${player.name}
+  <span class="rank-number">${index + 1}</span>
+  ${player.name}
+</span>
       </span>
 
       <span class="player-power">

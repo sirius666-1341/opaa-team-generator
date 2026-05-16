@@ -300,7 +300,6 @@
     inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
-/* Glow overlay / premium light effect */
 .top-header::before {
   content: "";
   position: absolute;
@@ -315,7 +314,6 @@
   pointer-events: none;
 }
 
-/* optional subtle top highlight line */
 .top-header::after {
   content: "";
   position: absolute;
@@ -456,22 +454,32 @@ body::after {
 }
     .player-info {
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   width: 100%;
+
   gap: 12px;
 }
 
 .player-name {
   color: white;
+
   font-weight: 500;
 }
 
 .player-power {
-  color: #93c5fd;
+  color: #94a3b8;
+
   font-weight: 600;
+
   font-size: 14px;
-  white-space: nowrap;
+
+  letter-spacing: 0.5px;
+
+  flex-shrink: 0;
 }
   </style>
 </head>
@@ -669,8 +677,8 @@ function renderPlayers() {
   </span>
 
   <span class="player-power">
-    ⚡ ${player.power}
-  </span>
+  ${player.power}
+</span>
 </div>
 
 ${isAdmin ? `
@@ -723,10 +731,22 @@ function renderTeam(id, team) {
 
   team.forEach((player, index) => {
     container.innerHTML += `
-      <div class=\"member\">
-        ${index + 1}. ${player.name} - ${player.power}
-      </div>
-    `;
+  <div class="member">
+
+    <div class="player-info">
+
+      <span class="player-name">
+        ${index + 1}. ${player.name}
+      </span>
+
+      <span class="player-power">
+        ${player.power}
+      </span>
+
+    </div>
+
+  </div>
+`;
   });
 }
 

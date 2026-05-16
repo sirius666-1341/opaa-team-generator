@@ -398,18 +398,35 @@ body::after {
   right: -80px;
     }
   .player-item button {
-  padding: 6px 10px;
-  font-size: 10px;
-  border-radius: 6px;
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(239, 68, 68, 0.12);
+
+  border: 1px solid rgba(239, 68, 68, 0.2);
+
   color: #fca5a5;
+
   cursor: pointer;
+
   transition: 0.2s ease;
+
+  flex-shrink: 0;
 }
 
 .player-item button:hover {
-  background: rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.22);
+
+  border-color: rgba(239, 68, 68, 0.35);
+
   transform: translateY(-1px);
 }
   .team-actions {
@@ -436,6 +453,25 @@ body::after {
 .icon-btn:hover {
   background: rgba(59,130,246,0.15);
   transform: translateY(-2px);
+}
+    .player-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+}
+
+.player-name {
+  color: white;
+  font-weight: 500;
+}
+
+.player-power {
+  color: #93c5fd;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
 }
   </style>
 </head>
@@ -627,11 +663,19 @@ function renderPlayers() {
   players.forEach((player, index) => {
     container.innerHTML += `
       <div class=\"player-item\">
-        <span>${index + 1}. ${player.name} - ${player.power}</span>
+        <div class="player-info">
+  <span class="player-name">
+    ${index + 1}. ${player.name}
+  </span>
+
+  <span class="player-power">
+    ⚡ ${player.power}
+  </span>
+</div>
 
 ${isAdmin ? `
 <button onclick="removePlayer('${player.name}')">
-  Remove
+  ✕
 </button>
 ` : ''}
       </div>

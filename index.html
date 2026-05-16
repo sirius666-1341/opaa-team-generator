@@ -183,29 +183,23 @@
     }
 
     .team-box {
-      background: rgba(17, 24, 39, 0.92);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 18px;
+  border-radius: 16px;
+  padding: 15px;
 
-  padding: 18px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 
-  box-shadow:
-    0 0 20px rgba(30,58,138,0.25);
-
-  backdrop-filter: blur(6px);
-
-  position: relative;
-
-  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 
   transition: 0.3s ease;
 }
-.team-box:hover {
-  transform: translateY(-4px);
 
-  box-shadow:
-    0 0 30px rgba(59,130,246,0.25);
+.team-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
 }
 .team-box h2 {
   margin-top: 0;

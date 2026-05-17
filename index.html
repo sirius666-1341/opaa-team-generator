@@ -831,13 +831,8 @@ if (duplicate) {
 }
 
 window.addPlayer = addPlayer;
-async function removePlayer(name) {
-  const q = query(collection(db, "players"), where("name", "==", name));
-  const querySnapshot = await getDocs(q);
-
-  for (const docSnap of querySnapshot.docs) {
-  await deleteDoc(doc(db, "players", docSnap.id));
-  }
+async function removePlayer(id) {
+  await deleteDoc(doc(db, "players", id));
 }
 
 window.removePlayer = removePlayer;
@@ -866,7 +861,7 @@ function renderPlayers() {
 </div>
 
 ${isAdmin ? `
-<button onclick="removePlayer('${player.name}')">
+<button onclick="removePlayer('${player.id}')">
   ✕
 </button>
 ` : ''}
@@ -945,7 +940,9 @@ onSnapshot(collection(db, "players"), (snapshot) => {
   });
 });
 
-players.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+players.sort((a, b) => {
+  return (a.createdAt ?? 0) - (b.createdAt ?? 0);
+});
 
 renderPlayers();
 
@@ -959,7 +956,7 @@ renderPlayers();
   for (const docSnap of snapshot.docs) {
     await deleteDoc(doc(db, "players", docSnap.id));
   }
-  }
+}
 
 window.clearPlayers = clearPlayers;
  function copyTeam(team) {

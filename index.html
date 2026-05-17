@@ -835,9 +835,9 @@ async function removePlayer(name) {
   const q = query(collection(db, "players"), where("name", "==", name));
   const querySnapshot = await getDocs(q);
 
-  querySnapshot.forEach(async (document) => {
-    await deleteDoc(document.ref);
-  });
+  for (const docSnap of querySnapshot.docs) {
+  await deleteDoc(doc(db, "players", docSnap.id));
+  }
 }
 
 window.removePlayer = removePlayer;
@@ -947,16 +947,16 @@ players.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
 renderPlayers();
 
 });
-async function clearPlayers() {
+  async function clearPlayers() {
   const confirmClear = confirm("Delete all players?");
-
   if (!confirmClear) return;
 
   const snapshot = await getDocs(collection(db, "players"));
 
-  snapshot.forEach(async (document) => {
-    await deleteDoc(document.ref);
-  });
+  for (const docSnap of snapshot.docs) {
+    await deleteDoc(doc(db, "players", docSnap.id));
+  }
+  }
 }
 
 window.clearPlayers = clearPlayers;

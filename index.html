@@ -805,32 +805,41 @@ const db = getFirestore(app);
 let players = [];
 const isAdmin = window.location.search.includes("admin=opaa1341");
 async function addPlayer() {
+  if (isAdding) return; // 🚫 block spam click
+  isAdding = true;
+
   const name = document.getElementById('name').value.trim();
   const power = parseFloat(document.getElementById('power').value);
 
   if (!name || isNaN(power)) {
     alert('Please enter valid data!');
+    isAdding = false;
     return;
   }
 
   const duplicate = players.find(
-  player => player.name.toLowerCase() === name.toLowerCase()
-);
+    player => player.name.toLowerCase() === name.toLowerCase()
+  );
 
-if (duplicate) {
-  alert('This player name is already registered!');
-  return;
+  if (duplicate) {
+    alert('This player name is already registered!');
+    isAdding = false;
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "players"), {
+      name,
+      power,
+      createdAt: Date.now()
+    });
+
+    document.getElementById('name').value = '';
+    document.getElementById('power').value = '';
+  } finally {
+    isAdding = false;
+  }
 }
-  await addDoc(collection(db, "players"), {
-  name,
-  power,
-  createdAt: Date.now()
-});
-
-  document.getElementById('name').value = '';
-  document.getElementById('power').value = '';
-}
-
 window.addPlayer = addPlayer;
 async function removePlayer(id) {
   await deleteDoc(doc(db, "players", id));

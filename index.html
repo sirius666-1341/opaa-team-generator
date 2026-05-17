@@ -938,8 +938,11 @@ function renderTeam(id, team) {
 onSnapshot(collection(db, "players"), (snapshot) => {
   players = [];
 
-  snapshot.forEach((doc) => {
-  players.push(doc.data());
+  snapshot.forEach((docSnap) => {
+  players.push({
+    id: docSnap.id,
+    ...docSnap.data()
+  });
 });
 
 players.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
@@ -957,7 +960,6 @@ renderPlayers();
     await deleteDoc(doc(db, "players", docSnap.id));
   }
   }
-}
 
 window.clearPlayers = clearPlayers;
  function copyTeam(team) {

@@ -777,7 +777,6 @@ backdrop-filter: blur(10px);
     <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
 import {
   getFirestore,
   collection,
@@ -785,8 +784,6 @@ import {
   getDocs,
   onSnapshot,
   deleteDoc,
-  query,
-  where,
   doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -803,31 +800,40 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let players = [];
+let isAdding = false;
+const isAdmin = window.location.search.includes("admin=opaa1341");
+
+let players = [];
 const isAdmin = window.location.search.includes("admin=opaa1341");
 async function addPlayer() {
-  if (isAdding) return; // 🚫 block spam click
+async function addPlayer() {
+  if (isAdding) return;
   isAdding = true;
 
-  const name = document.getElementById('name').value.trim();
-  const power = parseFloat(document.getElementById('power').value);
-
-  if (!name || isNaN(power)) {
-    alert('Please enter valid data!');
-    isAdding = false;
-    return;
-  }
-
-  const duplicate = players.find(
-    player => player.name.toLowerCase() === name.toLowerCase()
-  );
-
-  if (duplicate) {
-    alert('This player name is already registered!');
-    isAdding = false;
-    return;
-  }
+  const btn = document.querySelector(".add-btn");
+  btn.disabled = true;
 
   try {
+    const name = document.getElementById('name').value.trim();
+    const power = parseFloat(document.getElementById('power').value);
+
+    if (!name || isNaN(power)) {
+      alert('Please enter valid data!');
+      return;
+    }
+
+    // normalize biar anti typo duplicate (case + spacing)
+    const normalized = name.toLowerCase();
+
+    const duplicate = players.find(
+      p => (p.name || "").toLowerCase() === normalized
+    );
+
+    if (duplicate) {
+      alert('This player name is already registered!');
+      return;
+    }
+
     await addDoc(collection(db, "players"), {
       name,
       power,
@@ -836,10 +842,13 @@ async function addPlayer() {
 
     document.getElementById('name').value = '';
     document.getElementById('power').value = '';
+
   } finally {
     isAdding = false;
+    btn.disabled = false;
   }
 }
+
 window.addPlayer = addPlayer;
 async function removePlayer(id) {
   await deleteDoc(doc(db, "players", id));

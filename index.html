@@ -11,6 +11,7 @@
       font-family: 'Inter', sans-serif;
     }
 
+    /* MATCHING EXACT COLOR FROM GENERATOR (4).HTML */
     body {
       background: linear-gradient(135deg, #0f172a, #1e1b4b, #0b1120);
       color: white;
@@ -23,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* Glow background effects (Matching Generator) */
     body::before, body::after {
       content: "";
       position: fixed;
@@ -36,7 +36,7 @@
     body::before { background: #7c3aed; top: -50px; left: -50px; }
     body::after { background: #3b82f6; bottom: -80px; right: -80px; }
 
-    /* Navigation Bar - Perpendicular and Sticky */
+    /* NAVIGATION BAR - STICKY & PERPENDICULAR */
     nav {
       width: 95%;
       max-width: 1200px;
@@ -77,13 +77,10 @@
 
     .nav-links a:hover { color: #60a5fa; }
 
-    /* Main Container */
     .container {
       width: 95%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0;
-      box-sizing: border-box;
       text-align: center;
     }
 
@@ -99,7 +96,7 @@
     }
 
     h1 {
-      font-size: clamp(28px, 6vw, 48px);
+      font-size: clamp(24px, 5vw, 42px);
       font-weight: 800;
       margin: 0;
       letter-spacing: 2px;
@@ -117,19 +114,18 @@
 
     .description {
       color: #94a3b8;
-      font-size: 16px;
-      max-width: 700px;
+      font-size: 15px;
+      max-width: 600px;
       margin: 20px auto 0;
       line-height: 1.6;
-      font-weight: 400;
     }
 
-    /* Menu Grid */
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
       margin-bottom: 50px;
+      justify-content: center;
     }
 
     .menu-card {
@@ -143,14 +139,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      backdrop-filter: blur(10px);
     }
 
     .menu-card:hover {
       transform: translateY(-8px);
       background: rgba(255, 255, 255, 0.06);
       border-color: #60a5fa;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
     .menu-card i {
@@ -163,47 +157,40 @@
       margin: 10px 0;
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: 1px;
     }
 
     .menu-card p {
       color: #94a3b8;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.5;
     }
 
-    /* Footer - Matching Style */
     footer {
       margin-top: auto;
       padding: 40px;
       opacity: 0.5;
-      font-size: 13px;
+      font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
-    /* Mobile Responsiveness (Hiding Nav as requested) */
     @media (max-width: 600px) {
       nav {
-        display: none;
+        padding: 10px 15px;
+        margin: 10px auto;
+        border-radius: 12px;
       }
-      
-      .container {
-        padding-top: 20px;
+      .logo { font-size: 12px; }
+      .nav-links a { 
+        font-size: 9px; 
+        margin-left: 8px;
+        padding: 4px 8px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 6px;
       }
-
-      .hero-section {
-        padding: 40px 20px;
-        margin: 20px auto;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-
-      .description {
-        font-size: 13px;
-      }
+      .hero-section { padding: 40px 20px; margin: 20px auto; }
+      h1 { font-size: 20px; }
+      .description { font-size: 12px; }
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -223,28 +210,22 @@
     <div class="hero-section">
       <h1>ALLIANCE <span class="highlight">MANAGEMENT</span></h1>
       <p class="description">
-        Centralized operational hub for OPAA Alliance. Streamlining strategic coordination, squad assignments, and real-time member performance tracking.
+        The official operational dashboard for OPAA Alliance. Coordinating strategy and squad deployments with precision.
       </p>
     </div>
 
     <div class="menu-grid">
       <a href="generator.html" class="menu-card">
-        <i class="fas fa-users"></i>
+        <i class="fas fa-users-gear"></i>
         <h3>Team Maker</h3>
-        <p>Efficiently organize squad distributions and Desert Storm positionings based on power dynamics.</p>
+        <p>Automated squad distribution and strategic positioning for alliance operations.</p>
       </a>
 
       <a href="buff.html" class="menu-card">
-        <i class="fas fa-bolt"></i>
-        <h3>Growth & Buffs</h3>
-        <p>Monitor alliance schedules and optimize character progression through coordinated timed buffs.</p>
+        <i class="fas fa-clock"></i>
+        <h3>Buff Schedule</h3>
+        <p>Track active alliance buffs and coordinate growth timings for maximum efficiency.</p>
       </a>
-      
-      <div class="menu-card">
-        <i class="fas fa-server"></i>
-        <h3>HQ - Server 1341</h3>
-        <p>The primary tactical base for OPAA members. Driving server dominance through organized gameplay.</p>
-      </div>
     </div>
 
     <footer>
